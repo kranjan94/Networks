@@ -1,0 +1,33 @@
+TODO:
+	ÐFix getConnections to account for multiple pieces in a line
+	ÐMinimax/alpha-beta search
+
+
+Board representation:
+	ÐClass for each space
+		Ðint field for type (-1 = empty, 0 = black, 1 = white, -2 = invalid)
+		Ðint fields for x,y position
+		ÐUse private fields; use methods to set fields
+		
+	ÐClass for complete board
+		Ð8x8 array of spaces
+		Ðint field for current player type
+		ÐHandles all moves; legality of moves must be checked by MachinePlayer
+
+Method calls: 
+<referee> --> MachinePlayer --> MachinePlayer.board --> MachinePlayer.board.board[x][y]
+Tentative plan:
+MachinePlayer:
+	Make appropriate method call to Board
+Board:
+	Find all legal moves at this point
+	Use recursive calls to determine best move
+	Evaluate score of all possible next boards
+	
+
+Ideas:
+	ÐAdditional Board fields:
+		Ðint: number of own pieces left to play
+		Ðint: number of opponent's pieces left to play
+		ÐSpace[]: references to current spaces occupied by own pieces (maybe a graph?)
+		ÐSpace[]: references to current spaces occupied by opponent's pieces (maybe a graph?)

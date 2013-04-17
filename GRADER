@@ -1,0 +1,120 @@
+                                     GRADER
+
+Name of student running submit: Kushal Ranjan
+Login of student running submit: cs61b-ey
+
+Second team member's name: Crystal Chen
+Second team member's login: cs61b-pa
+
+Third team member's name (if any):
+Third team member's login:
+
+IMPORTANT:  Once you've submitted Project 2 once, the same team member should
+submit always.  If a different teammate must submit, inform cs61b@cory.eecs of
+all the details.  Include a complete list of team members, and let us know
+which submission you want graded.
+
+If you've submitted your project once, or even written a substantial amount of
+code together, you may not change partners without the permission of the
+instructor.
+===============================================================================
+Does your program compile without errors?
+
+
+Have you tested your program on the machines in the Soda CS 61B lab?
+
+
+Did you successfully implement game tree search?  Did you successfully
+implement alpha-beta pruning?  Are there any limitations on it?  What is the
+default number of search levels set by the one-parameter MachinePlayer
+constructor?
+
+
+Describe your board evaluation function in some detail.
+Suppose white_score := <# of connections between pieces (i.e. number of edges between
+vertices)> + <# of white pieces in left goal>*<# of white pieces in right goal>
+Suppose black_score is white_score for corresponding quantities for the other player.
+Then Eval(board) = white_score - black_score.
+
+
+Does your MachinePlayer use any special method of choosing the first few moves?
+No.
+
+Is there anything else the graders should know to help them read your project?
+The LinkedList<E> class is taken from a high school Data Structures course project. We were
+given the DoubleNode class (which is just a data holder) and the interface for the LinkedList<E>
+class and told to fill in the rest, including the iterator class. The Iterator<E> interface
+was originally taken from the Java libraries, but we rewrote it for this project. We chose
+to use this implementation because generics enabled us to disregard type casting.
+
+
+Describe the classes, modules, and interfaces you designed before and while you
+implemented the project.  Your description should include:
+  -  A list of the classes your program uses.
+  -  A list of each of the "modules" used in or by MachinePlayer, similar to
+     the list in the "Teamwork" section of the README (but hopefully more
+     detailed).
+  -  For each module, list the class(es) the module is implemented in.
+  -  For each module, say which of your team members implemented it.
+  -  For each module, describe its interface--specifically, the prototype and
+     behavior of each method that is available for external callers (outside
+     the module) to call.  Don't include methods that are only meant to be
+     called from within the module.
+
+     For each method, provide (1) a method prototype and (2) a complete,
+     unambiguous description of the behavior of the method/module.  This
+     description should also appear before the method in your code's comments.
+
+You will probably need to change some of your design decisions as you go; be
+sure to modify this file to reflect these changes before you submit your
+project.  Your design of classes and interfaces with be worth about 10% of your
+grade.
+
+Classes: Board, Space, Piece, PieceSet, Decision, LinkedList<E>, DoubleNode, Iterator<E>
+Modules:
+ÐGenerating all legal moves (Kushal Ranjan)
+	/**
+	 * Checks whether the specified move is legal for the specified player.
+	 * @param m			move attempting to be made
+	 * @param player	player attempting to make the move
+	 * @param numPieces	number of pieces the player has left
+	 * @return			true iff m is a legal move for player
+	 */
+	public boolean isLegalMove(Move m, int player) within Board
+	/**
+	 * Generate all legal moves on this board for the player of color color.
+	 * @param color		the player for whom to generate legal moves
+	 * @return			list containing all legal moves at this point
+	 */
+	public LinkedList<Move> generateAllMoves(int color) within Board
+	
+ÐEvaluating a board (Crystal Chen)
+	/**
+	 * Evaluates the score of this board for the given player.
+	 * @param color		the int color of the player to evaluate for
+	 * @return			an int representing the score of the board for the given player.
+	 */
+	public int evaluate() within Board
+	
+-Checks whether a network has been formed (Kushal Ranjan)
+	/**
+	 * Returns a list of all the Pieces that are the same color as and
+	 * form connections with this Piece; pieces must not form a line with prev
+	 */
+	public LinkedList<Piece> getConnections(Piece prev) within Piece
+	/**
+	 * Returns true iff this PieceSet has a winning network. A winning network:
+	 * 		ÐIs at least of length 6.
+	 * 		ÐHas no 3 consecutive pieces in a row.
+	 * 		ÐBegins and ends in one of the goals for this player.
+	 * @return true if this player wins, false otherwise
+	 */
+	public boolean victory() within PieceSet
+
+-Choosing a move (Crystal Chen)
+	/**
+     * Returns a new move by "this" player. Internally records the move (updates the 
+     * internal game board) as a move by "this" player.
+     */
+    public Move chooseMove() in MachinePlayer
+	
